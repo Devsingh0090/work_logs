@@ -5,10 +5,10 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'sports_complex_secret_key_2025'
     
     # Only allow MySQL configuration
-    MYSQL_HOST = os.environ.get('MYSQL_HOST', 'localhost')
-    MYSQL_USER = os.environ.get('MYSQL_USER', 'root')
-    MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD', 'exult123')  # default password for local MySQL5
-    MYSQL_DB = os.environ.get('MYSQL_DB', 'work_logs')
+    MYSQL_HOST = os.environ.get('MYSQL_HOST', 'sql12.freesqldatabase.com')
+    MYSQL_USER = os.environ.get('MYSQL_USER', 'sql12815694')
+    MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD', 'zxdrsn8lXf')  # default password for local MySQL5
+    MYSQL_DB = os.environ.get('MYSQL_DB', 'sql12815694')
     MYSQL_PORT = int(os.environ.get('MYSQL_PORT', 3306))
     # URL encode password to handle special characters
     encoded_password = urllib.parse.quote_plus(MYSQL_PASSWORD)
@@ -44,4 +44,5 @@ config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
     'default': DevelopmentConfig
+
 }
