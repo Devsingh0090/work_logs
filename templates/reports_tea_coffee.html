@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tea/Coffee Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/reports_work_entries.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+</head>
+
+<body>
+  <button class="toggle-btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+        <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu open" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:block; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee" class="active"><i class="fas fa-mug-hot"></i>
+                <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <div class="header">
+      <div class="page-title">
+        <h1>Tea/Coffee — Reports</h1>
+        <p>Report: Tea & Coffee consumption</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 28px;">
+      <h5 style="margin-bottom:12px;">Filter Records</h5>
+      <div class="filter-bar styled-filter-bar" style="flex-direction:column; align-items:stretch;">
+        <div class="filter-fields-row"
+          style="display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:flex-start;">
+          <label>Start Date:<input type="date" id="filterStartDate" class="filter-input"></label>
+          <label>End Date:<input type="date" id="filterEndDate" class="filter-input"></label>
+        </div>
+        <div style="margin-top:14px; display:flex; gap:18px; flex-wrap:wrap;">
+          <div class="report-card"
+            style="flex:1 1 180px; padding:14px; border-radius:8px; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,0.04);">
+            <div style="font-size:0.9rem; color:#666;">Total Days</div>
+            <div id="tc_total_days" style="font-size:1.6rem; font-weight:700; margin-top:6px;">0</div>
+          </div>
+          <div class="report-card"
+            style="flex:1 1 180px; padding:14px; border-radius:8px; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,0.04);">
+            <div style="font-size:0.9rem; color:#666;">Total Qty</div>
+            <div id="tc_total_qty" style="font-size:1.6rem; font-weight:700; margin-top:6px;">0</div>
+          </div>
+          <div class="report-card"
+            style="flex:1 1 180px; padding:14px; border-radius:8px; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,0.04);">
+            <div style="font-size:0.9rem; color:#666;">Total Price</div>
+            <div id="tc_total_price" style="font-size:1.6rem; font-weight:700; margin-top:6px;">0.00</div>
+          </div>
+        </div>
+        <div class="filter-btn-row" style="display:flex; gap:16px; justify-content:flex-end; margin-top:18px;">
+          <button id="resetFiltersBtn" class="filter-btn">Reset</button>
+          <button id="applyFiltersBtn" class="filter-btn primary">Apply Filters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h5 style="margin-bottom:12px;">All Users — Tea/Coffee</h5>
+      <div class="table-container">
+        <table class="viz-table" id="reportsTeaCoffeeTable">
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Date</th>
+              <th>User</th>
+              <th>Time</th>
+              <th>Qty</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="reportsTeaCoffeeBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/Work_logs/static/js/reports_tea_coffee.js"></script>
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Report...</div>
+  </div>
+
+  <script src="/Work_logs/static/js/access_control.js"></script>
+  <script src="/Work_logs/static/js/index.js"></script>
+</body>
+
+</html>

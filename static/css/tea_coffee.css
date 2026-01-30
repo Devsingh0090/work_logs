@@ -1,0 +1,22 @@
+/* Tea/Coffee page styles */
+#drinksBody .action-btn {
+  padding: 6px 10px;
+}
+
+#drinksBody .delete-btn {
+  background: rgba(239, 68, 68, 0.08);
+  color: var(--danger);
+}
+
+@media (max-width: 800px) {
+  .form-row {
+    flex-direction: column !important;
+    gap: 12px;
+  }
+
+  .form-group {
+    flex: 1 1 auto !important;
+    /* Override inline styles causing height issues */
+    width: 100%;
+  }
+}

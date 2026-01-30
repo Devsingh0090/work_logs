@@ -1,0 +1,104 @@
+/* Small project-specific overrides; main styling comes from operators.css */
+.card h5 { color: #1e88e5; }
+#assignedList { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.assigned-pill { background:#e9f5ff; color:#0f4fa8; padding:6px 12px; border-radius:16px; font-weight:600; display:inline-flex; align-items:center; gap:6px; box-shadow: 0 1px 3px rgba(15,79,168,0.08); font-size:0.85rem; }
+.assigned-pill .remove { margin-left:4px; cursor:pointer; color:#d32f2f; font-weight:700; background: transparent; padding:0 4px; font-size:1rem; }
+
+/* Modal tweaks for Projects edit/create - Compact version */
+.modal-content { padding: 20px 24px; border-radius: 12px; max-width: 480px; max-height: 85vh; overflow-y: auto; }
+.modal-content h3 { font-size: 1.5rem; margin-bottom: 14px; color: #233246; }
+.modal-content label { font-size: 0.9rem; font-weight:600; color:#2e3b4a; margin-bottom:4px; display:block; }
+.modal-content input[type="text"], .modal-content select { height:38px; padding:8px 10px; border-radius:6px; border:1px solid #d6e4f2; background:#fff; font-size:0.9rem; }
+
+/* Add button next to select in modal */
+.modal-content .btn-primary { padding:8px 16px; border-radius:8px; font-size:0.9rem; }
+
+/* Footer action buttons in modal */
+.modal-content .btn-secondary { padding:10px 22px; border-radius:10px; font-size:0.9rem; }
+.modal-content .btn-primary.save { padding:10px 22px; border-radius:10px; font-size:0.9rem; }
+
+/* Compact form spacing in modal */
+.modal-content .form-row { gap: 10px; }
+.modal-content > div[style*="display:grid"] { gap: 10px !important; }
+
+/* edit assigned pills container */
+#editAssignedList { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
+
+/* Work Types / Add Modules specific styles */
+#workTypesTab h5 { font-size:24px; color:#1786f2; font-weight:700; margin:6px 0 12px 0; }
+#workTypesTab .card { padding:18px; background: #ffffff; border-radius:12px; box-shadow: 0 6px 18px rgba(33,50,70,0.04); }
+
+#modulesWorkTypeSelect { width:100%; height:44px; padding:8px 12px; border-radius:8px; border:1px solid #e3eefc; background:#fff; font-size:0.95rem; }
+#moduleNameInput { height:44px; padding:8px 12px; border-radius:8px; border:1px solid #e9eef6; font-size:0.95rem; }
+#addModuleBtn { height:44px; padding:0 18px; border-radius:10px; background:#f3f6fb; border:1px solid #e1e9f6; color:#163a64; font-weight:700; box-shadow: 0 2px 6px rgba(22,58,100,0.06); cursor:pointer; }
+#addModuleBtn:hover { background:#edf4ff; }
+
+#modulesListDiv { min-height:100px; border-radius:10px; padding:12px; background:#fbfdff; border:1px solid #f0f6fb; overflow:auto; }
+#modulesListDiv .module-pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:#eef7ff; color:#0b4ea2; border-radius:16px; margin:6px 6px 6px 0; font-weight:600; box-shadow: 0 1px 4px rgba(11,78,162,0.06); }
+#modulesListDiv .module-pill .remove { cursor:pointer; color:#c73737; font-weight:700; }
+
+/* Edit Work Type modal - Modules area styling */
+.modal .modal-content #edit_wt_modules { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.modal .modal-content #edit_wt_modules .assigned-pill,
+.modal .modal-content #editAssignedList .assigned-pill { background:#eef6ff; color:#0b4ea2; padding:8px 14px; border-radius:20px; font-weight:700; display:inline-flex; align-items:center; gap:8px; box-shadow: 0 4px 10px rgba(11,78,162,0.06); }
+.modal .modal-content #edit_wt_modules .assigned-pill .remove,
+.modal .modal-content #editAssignedList .assigned-pill .remove { margin-left:6px; cursor:pointer; color:#d43f3f; font-weight:800; background:transparent; padding:0 6px; }
+
+.modal .modal-content #edit_wt_name { width:100%; height:44px; padding:8px 12px; border-radius:8px; border:1px solid #e6f0fb; }
+.modal .modal-content #edit_wt_module_input { width:70%; min-width:160px; height:40px; padding:8px 10px; border-radius:8px; border:1px solid #e9eef6; }
+.modal .modal-content #edit_wt_add { height:40px; padding:0 14px; margin-left:8px; border-radius:8px; background:#f3f7ff; border:1px solid #dbe9ff; color:#163a64; font-weight:700; cursor:pointer; }
+.modal .modal-content #edit_wt_add:hover { background:#edf6ff; }
+
+/* Ensure the add button and input align nicely on narrow widths */
+.modal .modal-content .edit-assign-row { display:flex; gap:8px; align-items:center; }
+
+@media (max-width:600px) {
+	.modal .modal-content #edit_wt_module_input { width:100% !important; margin-bottom:8px; }
+	.modal .modal-content #edit_wt_add { width:100% !important; margin-left:0 !important; }
+	.modal .modal-content .edit-assign-row { flex-direction:column; align-items:stretch; }
+	.modal .modal-content #edit_wt_modules .assigned-pill { font-size:0.95rem; padding:8px 10px; }
+}
+
+/* Table tweaks for readability */
+#workTypesTable { width:100%; border-collapse:collapse; }
+#workTypesTable th, #workTypesTable td { padding:10px 12px; text-align:left; vertical-align:middle; }
+#workTypesTable thead th { background:transparent; color:#274057; font-weight:700; font-size:0.95rem; }
+
+/* Modal action buttons styling to match screenshot */
+.modal-content .btn-secondary { background:#f4f4f6; color:#2b2b2b; border:none; padding:10px 26px; border-radius:28px; font-weight:700; box-shadow: 0 6px 18px rgba(16,24,40,0.06); }
+.modal-content .btn-primary { background: linear-gradient(180deg,#1473f7,#0b5ed7); color:#fff; border:none; padding:10px 26px; border-radius:28px; font-weight:800; box-shadow: 0 8px 26px rgba(11,94,213,0.18); }
+.modal-content .btn-primary:active { transform: translateY(1px); }
+
+/* Responsive small adjustments */
+@media (max-width:880px) {
+	#modulesWorkTypeSelect, #moduleNameInput { height:42px; }
+	#addModuleBtn { height:42px; padding:0 12px; }
+	#workTypesTab h5 { font-size:20px; }
+}
+
+/* Add Work Type - Name input styling (Add/Edit modals) */
+.modal .modal-content #add_wt_only_name,
+.modal .modal-content #wt_name,
+.modal .modal-content #edit_wt_name {
+	width: 100%;
+	height: 48px;
+	padding: 10px 14px;
+	border-radius: 10px;
+	border: 1px solid #e6eef9;
+	background: #ffffff;
+	font-size: 1rem;
+	box-shadow: inset 0 1px 0 rgba(16,24,40,0.02);
+}
+.modal .modal-content #add_wt_only_name:focus,
+.modal .modal-content #wt_name:focus,
+.modal .modal-content #edit_wt_name:focus {
+	outline: none;
+	border-color: #8fb9ff;
+	box-shadow: 0 6px 20px rgba(11,94,213,0.08);
+}
+
+@media (max-width:600px) {
+	.modal .modal-content #add_wt_only_name,
+	.modal .modal-content #wt_name,
+	.modal .modal-content #edit_wt_name { height:44px; padding:10px 12px; }
+}

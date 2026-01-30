@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Laboratory Equipment Management System{% endblock %}</title>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visualization.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gst_number.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transaction_style.css') }}">
+
+   
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="top-navbar">
+        <div class="navbar-content">
+            <img src="exult1.png" alt="Lab Equipment Logo" class="exult-logo"
+                 style="height:60px;margin-right:12px;border-radius:6px;mix-blend-mode: multiply;"
+                 onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg';this.alt='Logo not found';"/>
+            <a href="#" style="font-weight: 800;color: #1976d2;font-size: 2.1rem;">Lab Equipment</a>
+            <div style="flex:1"></div>
+            <div class="navbar-powered-right">
+                <a href="https://exultsoft.com/" target="_blank">
+                    <img src="Exult.png" alt="Exultsoft Logo" style="height:36px;border-radius:6px;"
+                         onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg';this.alt='Logo not found';"/>
+                </a>
+                <a href="https://exultsoft.com/" target="_blank">
+                    <img src="Exult1.png" alt="Exultsoft Logo 2" style="height:36px;border-radius:6px; margin-left:8px;"
+                         onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg';this.alt='Logo not found';"/>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Circles -->
+    <div class="bg-circles">
+        <div class="bg-circle c1"></div>
+        <div class="bg-circle c2"></div>
+        <div class="bg-circle c3"></div>
+        <div class="bg-circle c4"></div>
+        <div class="bg-circle c5"></div>
+    </div>
+
+    <!-- Global Message -->
+    <div id="globalMessage" style="display:none;"></div>
+
+    <!-- 🔽 Main Content from Child Template -->
+    <!-- <div class="container">
+        {% block content %}{% endblock %}
+    </div> -->
+
+    <!-- Footer -->
+    <footer>
+        <a href="https://exultsoft.com/" target="_blank" style="font-weight:600;color:#1976d2;text-decoration:none;">
+            Powered by Exultsoft Technologies Pvt. Ltd.
+        </a>
+    </footer>
+</body>
+</html>

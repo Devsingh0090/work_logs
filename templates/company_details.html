@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Details Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+    <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+    <link rel="stylesheet" href="/Work_logs/static/css/company_details.css">
+    <link rel="stylesheet" href="/Work_logs/static/css/operators.css">
+    <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+</head>
+<script>
+    function toggleSubMasterData(event) {
+        event.preventDefault();
+        var li = event.target.closest('li');
+        if (!li) return;
+        var submenu = li.querySelector('.sub-master-data-menu');
+        var anchor = li.querySelector('a');
+        if (!submenu || !anchor) return;
+        var isOpen = submenu.style.display === 'block';
+        if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+    }
+</script>
+</script>
+</head>
+
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+            <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+        </div>
+        <div class="sidebar-menu" style="display: none;">
+            <ul>
+                <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin
+                            Dashboard</span></a></li>
+                <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+                <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work
+                            Entries</span></a></li>
+                <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+                <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+                <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+                <li><a href="/Work_logs/company_details" class="active"><i class="fas fa-building"></i> <span>Client
+                            Details</span></a></li>
+                <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+                <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+                <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                        <span>Expenses</span></a></li>
+                <li>
+                    <a href="#" class="has-submenu" onclick="toggleSubMasterData(event)"><i
+                            class="fas fa-chart-line"></i> <span>Reports Master</span></a>
+                    <ul class="sub-master-data-menu"
+                        style="display:none; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+                        <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                                    Entries</span></a></li>
+                        <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i>
+                                <span>Tea/Coffee</span></a></li>
+                        <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                                <span>Expenses</span></a></li>
+                        <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"
+                            style="color:#e53935;"></i> <span style="color:#e53935; font-weight:600;">Logout</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent" style="overflow-x:auto;">
+        <div class="header">
+            <div class="page-title">
+                <h1>Client Details Management</h1>
+                <p>Manage all client master data</p>
+            </div>
+            <div class="user-info">
+                <img src="/Work_logs/static/Exult.png" alt="User">
+                <div class="user-details">
+                    <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Tab Navigation -->
+        <div class="custom-tabs-container">
+            <div class="custom-tabs">
+                <button id="tabCompanyEntry" class="custom-tab-btn active" type="button">Data Entry</button>
+                <button id="tabCompanyList" class="custom-tab-btn" type="button">Client List</button>
+            </div>
+        </div>
+        <!-- Data Entry Tab Content -->
+        <div id="companyEntryTab" class="tab-content" style="display:block;">
+            <div class="card">
+                <h5
+                    style="margin-top:0; font-size:2.2rem; font-weight:700; color:#263238; letter-spacing:1px; margin-bottom:0;">
+                    Add Client</h5>
+                <hr style="margin:24px 0 38px 0; border:0; border-top:2.5px solid #e0e0e0;">
+                <form id="companyForm">
+                    <div id="companyMessage"
+                        style="display:none; margin-bottom:18px; padding:22px 28px; border-radius:14px; font-size:1.18em; font-weight:600; text-align:left; box-shadow:0 2px 8px rgba(33,150,243,0.08); min-height:90px; max-width:520px; width:100%; background:#e3f2fd; color:#2e7d32; border:2px solid #bbdefb; margin-left:auto; margin-right:auto;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company_name">Client Name:</label>
+                            <input type="text" id="company_name" name="company_name" required minlength="3"
+                                maxlength="100" placeholder="e.g., Exultsoft Technologies" pattern="[a-zA-Z0-9\s\-()]+"
+                                oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" maxlength="200"
+                                placeholder="e.g., 123 Main St Area"
+                                oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" maxlength="50" placeholder="e.g., Mumbai"
+                                oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State:</label>
+                            <input type="text" id="state" name="state" maxlength="50" placeholder="e.g., Maharashtra"
+                                oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact_no">Contact No.:</label>
+                            <input type="tel" id="contact_no" name="contact_no" maxlength="12"
+                                placeholder="e.g., +91 7892477989">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email ID:</label>
+                            <input type="email" id="email" name="email" maxlength="100"
+                                placeholder="e.g., vendor@example.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="width:100%;">
+                            <label for="web_url">Website / URL:</label>
+                            <input type="url" id="web_url" name="web_url" maxlength="200"
+                                placeholder="e.g., https://www.example.com">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Add</button>
+                        <button type="button" onclick="document.getElementById('companyForm').reset()"
+                            class="btn-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Company List Tab Content -->
+        <div id="companyListTab" class="tab-content" style="display:none;">
+            <div class="table-container">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                    <h3 class="table-header-title">All Clients</h3>
+                </div>
+                <div style="overflow-x:auto; overflow-y:auto; max-height:60vh; border-radius:12px;">
+                    <table id="companyTable" class="viz-table" style="min-width:700px;width:max-content;">
+                        <thead>
+                            <tr>
+                                <th>S. No.</th>
+                                <th>ID</th>
+                                <th>Client Name</th>
+                                <th>Address</th>
+                                <th>Contact No.</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Logged User</th>
+                                <th>Date/Time</th>
+                                <th>Operation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="companyTableBody">
+                            <!-- Companies will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Work_logs/static/js/company_details.js"></script>
+    <script src="/Work_logs/static/js/auth.js"></script>
+    <script src="/Work_logs/static/js/access_control.js"></script>
+    <script src="/Work_logs/static/js/index.js"></script>
+    <script>
+        // Tab switching logic for manufacturing details
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabCompanyEntry = document.getElementById('tabCompanyEntry');
+            const tabCompanyList = document.getElementById('tabCompanyList');
+            const companyEntryTab = document.getElementById('companyEntryTab');
+            const companyListTab = document.getElementById('companyListTab');
+            if (tabCompanyEntry && tabCompanyList && companyEntryTab && companyListTab) {
+                tabCompanyEntry.onclick = function () {
+                    tabCompanyEntry.classList.add('active');
+                    tabCompanyList.classList.remove('active');
+                    companyEntryTab.style.display = 'block';
+                    companyListTab.style.display = 'none';
+                };
+                tabCompanyList.onclick = function () {
+                    tabCompanyList.classList.add('active');
+                    tabCompanyEntry.classList.remove('active');
+                    companyEntryTab.style.display = 'none';
+                    companyListTab.style.display = 'block';
+                    if (typeof fetchCompanies === 'function') fetchCompanies();
+                };
+            }
+        });
+
+        // For Location & Infra Master submenu
+        function toggleSubMasterData(event) {
+            event.preventDefault();
+            var li = event.target.closest('li');
+            if (!li) return;
+            var submenu = li.querySelector('.sub-master-data-menu');
+            var anchor = li.querySelector('a');
+            if (!submenu || !anchor) return;
+            var isOpen = submenu.style.display === 'block';
+            if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+        }
+    </script>
+    <!-- Company Edit Modal -->
+    <div id="companyEditModal" class="modal"
+        style="display:none; position: fixed; z-index:30000 !important; left:0; top:0; width:100vw; height:100vh; background: rgba(0,0,0,0.4); justify-content:center; align-items:center;">
+        <div class="modal-content"
+            style="background: #fff; padding: 28px; border-radius: 12px; min-width: 480px; max-width: 90vw; box-shadow: 0 6px 24px rgba(0,0,0,0.12); position: relative;">
+            <h3 style="color: #4a5568; font-size: 1.5rem; font-weight: 700; margin: 0 0 18px 0; text-align:center;">Edit
+                Client</h3>
+            <form id="companyEditForm">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom:18px;">
+                    <div>
+                        <label for="edit_company_name"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">Client
+                            Name</label>
+                        <input type="text" id="edit_company_name" name="company_name" required minlength="3"
+                            maxlength="100"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;"
+                            pattern="[a-zA-Z0-9\s\-()]+"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')" />
+                    </div>
+                    <div>
+                        <label for="edit_address"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">Address</label>
+                        <input type="text" id="edit_address" name="address" maxlength="200"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')" />
+                    </div>
+                    <div>
+                        <label for="edit_city"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">City</label>
+                        <input type="text" id="edit_city" name="city" maxlength="50"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')" />
+                    </div>
+                    <div>
+                        <label for="edit_state"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">State</label>
+                        <input type="text" id="edit_state" name="state" maxlength="50"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;"
+                            oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s\-()]/g,'')" />
+                    </div>
+                    <div>
+                        <label for="edit_contact_no"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">Contact
+                            No.</label>
+                        <input type="tel" id="edit_contact_no" name="contact_no" maxlength="30"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;" />
+                    </div>
+                    <div>
+                        <label for="edit_email"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">Email
+                            ID</label>
+                        <input type="email" id="edit_email" name="email" maxlength="100"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;" />
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <label for="edit_web_url"
+                            style="display:block; color:#4a5568; font-weight:600; margin-bottom:6px; font-size:1rem;">Website
+                            / URL</label>
+                        <input type="url" id="edit_web_url" name="web_url" maxlength="200"
+                            style="width:100%; padding:10px 14px; border:2px solid #e2e8f0; border-radius:6px; font-size:0.95rem; box-sizing:border-box;" />
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:12px;">
+                    <button type="button" onclick="closeCompanyEditModal()"
+                        style="padding:10px 24px; background:#90a4ae; color:white; border:none; border-radius:6px; font-size:0.95rem; font-weight:600; cursor:pointer;">Cancel</button>
+                    <button type="submit"
+                        style="padding:10px 24px; background:#2196f3; color:white; border:none; border-radius:6px; font-size:0.95rem; font-weight:600; cursor:pointer;">Save</button>
+                </div>
+            </form>
+            <button onclick="closeCompanyEditModal()"
+                style="position:absolute;top:8px;right:12px;font-size:18px;background:none;border:none;cursor:pointer;color:#718096;font-weight:bold;">&times;</button>
+        </div>
+    </div>
+</body>
+
+</html>

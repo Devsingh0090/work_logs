@@ -1,0 +1,29 @@
+.meeting-summary {
+  white-space: pre-wrap;
+}
+
+.meeting-card .card-body {
+  padding: 1rem;
+}
+
+/* Filter inputs styling (match work_entries style) */
+#filter_start, #filter_end {
+  width:140px;
+  padding:8px 10px;
+  border:1px solid #e0e0e0;
+  border-radius:8px;
+  height:36px;
+  font-size:13px;
+  background:#fff;
+  box-shadow: none;
+}
+
+#filter_start::-webkit-calendar-picker-indicator,
+#filter_end::-webkit-calendar-picker-indicator {
+  margin-left:6px;
+}
+
+.meeting-filters .btn {
+  height:36px;
+  padding:6px 12px;
+}

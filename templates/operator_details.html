@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/operators.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+</head>
+<script>
+  function toggleSubMasterData(event) {
+    event.preventDefault();
+    var li = event.target.closest('li');
+    if (!li) return;
+    var submenu = li.querySelector('.sub-master-data-menu');
+    var anchor = li.querySelector('a');
+    if (!submenu || !anchor) return;
+    var isOpen = submenu.style.display === 'block';
+    if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+  }
+</script>
+</script>
+</head>
+
+<body>
+  <!-- Toggle Button -->
+  <button class="toggle-btn" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+        <li><a href="/Work_logs/operator_details" class="active"><i class="fas fa-users"></i> <span>Users</span></a>
+        </li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:none; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent" style="overflow-x:auto;">
+    <div class="header">
+      <div class="page-title">
+        <h1>User Management</h1>
+        <p>Monitor and manage all application users and roles</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="custom-tabs-container">
+      <div class="custom-tabs">
+        <button id="tabDataEntry" class="custom-tab-btn active" type="button">Add User</button>
+        <button id="tabInventoryView" class="custom-tab-btn" type="button">Users List</button>
+        <button id="tabRoleAccess" class="custom-tab-btn" type="button">Role Access</button>
+      </div>
+    </div>
+
+    <!-- Data Entry Tab Content -->
+    <div id="dataEntryTab" class="tab-content" style="display:block;">
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; margin-bottom:0;">
+          <h5
+            style="margin-top:0; font-size:2.2rem; font-weight:700; color:#263238; letter-spacing:1px; margin-bottom:0;">
+            Add New User</h5>
+          <div class="excel-btns-mobile-wrap" style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button onclick="downloadTemplate('operators_template')" type="button" class="excel-btn template-btn">📋
+              Download Template</button>
+            <input type="file" id="operatorsExcelFile" accept=".xlsx,.xls" style="display: none;"
+              onchange="uploadOperatorsExcel(event)">
+            <button onclick="document.getElementById('operatorsExcelFile').click()" type="button"
+              class="excel-btn upload-btn">📤 Upload Excel</button>
+          </div>
+        </div>
+        <hr style="margin:24px 0 38px 0; border:0; border-top:2.5px solid #e0e0e0;">
+        <form id="operatorForm">
+          <div id="operatorMessage" style="display:none;margin-bottom:10px;"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="operator_id">User ID:</label>
+              <input type="text" id="operator_id" name="operator_id" required placeholder="e.g., USR001"
+                autocomplete="off" maxlength="50" pattern="^[A-Za-z0-9]+$" title="Only letters and numbers allowed"
+                oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '');">
+            </div>
+            <div class="form-group">
+              <label for="operator_name">User Name:</label>
+              <input type="text" id="operator_name" name="name" required placeholder="e.g., John Doe" maxlength="50"
+                pattern="^[A-Za-z0-9 ]+$" title="Only letters, numbers and spaces allowed"
+                oninput="this.value = this.value.replace(/[^A-Za-z0-9 ]/g, '');">
+            </div>
+            <div class="form-group">
+              <label for="operator_email">Email ID:</label>
+              <input type="email" id="operator_email" name="email" required placeholder="e.g., john@example.com"
+                maxlength="50">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="operator_role">Role:</label>
+              <select id="operator_role" name="role" required style="height:44px;">
+                <option value="">-- Select role --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="operator_joining_date">Joining Date:</label>
+              <input type="date" id="operator_joining_date" name="joining_date">
+            </div>
+            <div class="form-group">
+              <label for="operator_skills">Skills (comma separated):</label>
+              <input type="text" id="operator_skills" name="skills" placeholder="e.g., Matlab,Python,Lab Work">
+            </div>
+            <div class="form-group">
+              <label for="operator_password">Password:</label>
+              <div style="position:relative;display:flex;align-items:center;">
+                <input type="password" id="operator_password" name="password" required placeholder="Enter password"
+                  autocomplete="new-password" minlength="4" maxlength="10" style="padding-right:38px;">
+                <span id="toggleOperatorPassword"
+                  onclick="togglePasswordVisibility('operator_password', 'toggleOperatorPassword')"
+                  style="position:absolute;right:10px;cursor:pointer;font-size:1.2em;color:black;">
+                  <svg id="operatorPasswordEye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                    stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Add User</button>
+            <button type="button" onclick="clearOperatorForm()" class="btn-secondary">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Users List Tab Content -->
+    <div id="inventoryViewTab" class="tab-content" style="display:none;">
+      <div class="table-container">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+          <h3 class="table-header-title">All Users</h3>
+          <button onclick="downloadOperatorsExcel()" class="excel-btn download-btn">� Download Details</button>
+        </div>
+
+        <!-- Search Filter -->
+        <div class="operator-filter-bar">
+          <label for="operatorFilterInput">Search by Name or ID:</label>
+          <input type="text" id="operatorFilterInput" placeholder="Search by Name or ID....." />
+        </div>
+
+        <div style="overflow-x:auto; overflow-y:auto; max-height:60vh; border-radius:12px;">
+          <table id="operatorsTable" class="viz-table" style="min-width:1200px;width:max-content;">
+            <thead>
+              <tr>
+                <th>S. No.</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Joining Date</th>
+                <th>Skills</th>
+                <th>Role</th>
+                <th>Date/Time</th>
+                <th>Logged User</th>
+                <th>Operation</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="operatorsTableBody">
+              <!-- Operators will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Role Access Tab Content -->
+    <div id="roleAccessTab" class="tab-content" style="display:none;">
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; margin-bottom:0;">
+          <h5
+            style="margin-top:0; font-size:2.2rem; font-weight:700; color:#263238; letter-spacing:1px; margin-bottom:0;">
+            Role Based Access</h5>
+        </div>
+        <hr style="margin:24px 0 38px 0; border:0; border-top:2.5px solid #e0e0e0;">
+        <form id="roleForm">
+          <div id="roleMessage" style="display:none;margin-bottom:10px;"></div>
+          <div class="form-row">
+            <div class="form-group" style="width:100%;">
+              <label for="role_name">Role Name:</label>
+              <input type="text" id="role_name" name="name" required placeholder="e.g., Admin, Manager" maxlength="100"
+                style="width:320px;">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:12px;">
+            <div class="form-group" style="width:100%;">
+              <label>Permissions (select allowed tabs):</label>
+              <div style="margin-top:6px; margin-bottom:6px;">
+                <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;">
+                  <input type="checkbox" id="roleSelectAll" style="width:14px;height:14px;"> <strong
+                    style="font-size:0.95rem;">Select All</strong>
+                </label>
+              </div>
+              <div id="rolePermissionsList" class="role-permissions-list" style="padding-top:8px;">
+                <!-- Checkboxes populated by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Add Role</button>
+            <button type="button" onclick="clearRoleForm()" class="btn-secondary">Clear</button>
+          </div>
+        </form>
+
+        <hr style="margin:18px 0 18px 0; border:0; border-top:1px solid #eee;">
+        <h4>Existing Roles</h4>
+        <div style="overflow-x:auto; max-height:40vh;">
+          <table id="rolesTable" class="viz-table" style="min-width:800px;width:100%;">
+            <thead>
+              <tr>
+                <th>S. No.</th>
+                <th>Role Name</th>
+                <th>Permissions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="rolesTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Operator Edit Modal -->
+  <div id="operatorEditModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Edit User</h3>
+      <form id="operatorEditForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit_operator_id">User ID:</label>
+            <input type="text" id="edit_operator_id" name="operator_id" required maxlength="50" pattern="^[A-Za-z0-9]+$"
+              title="Only letters and numbers allowed" readonly style="background:#f5f5f5;cursor:not-allowed;">
+          </div>
+          <div class="form-group">
+            <label for="edit_operator_name">User Name:</label>
+            <input type="text" id="edit_operator_name" name="name" required maxlength="50" pattern="^[A-Za-z0-9 ]+$"
+              title="Only letters, numbers and spaces allowed">
+          </div>
+          <div class="form-group">
+            <label for="edit_operator_email">Email ID:</label>
+            <input type="email" id="edit_operator_email" name="email" required maxlength="50">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit_operator_role">Role:</label>
+            <select id="edit_operator_role" name="role" required style="height:44px;">
+              <option value="">-- Select role --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit_operator_joining_date">Joining Date:</label>
+            <input type="date" id="edit_operator_joining_date" name="joining_date">
+          </div>
+          <div class="form-group">
+            <label for="edit_operator_skills">Skills (comma separated):</label>
+            <input type="text" id="edit_operator_skills" name="skills" placeholder="e.g., Matlab,Python,Lab Work">
+          </div>
+          <div class="form-group">
+            <label for="edit_operator_password">Password:</label>
+            <div style="position:relative;display:flex;align-items:center;">
+              <input type="password" id="edit_operator_password" name="password"
+                placeholder="Leave blank to keep current password" minlength="4" maxlength="10"
+                style="padding-right:38px;">
+              <span id="toggleEditOperatorPassword"
+                onclick="togglePasswordVisibility('edit_operator_password', 'toggleEditOperatorPassword')"
+                style="position:absolute;right:10px;cursor:pointer;font-size:1.2em;color:black;">
+                <svg id="editOperatorPasswordEye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                  stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Changes</button>
+          <button type="button" onclick="closeOperatorEditModal()" class="btn-secondary">Cancel</button>
+        </div>
+      </form>
+      <button onclick="closeOperatorEditModal()" class="modal-close-btn">&times;</button>
+    </div>
+  </div>
+  </div>
+
+
+  <style>
+    @media (max-width: 600px) {
+      .excel-btns-mobile-wrap {
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100%;
+      }
+
+      .excel-btns-mobile-wrap .excel-btn {
+        width: 100%;
+        min-width: 0;
+        font-size: 1em !important;
+        padding: 12px 0 !important;
+      }
+    }
+
+    /* Reduce edit modal width so it doesn't get cut off behind sidebar */
+    /* Ensure modal is centered within the viewport excluding the left sidebar */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      /* add left padding so modal content avoids the sidebar area */
+      padding-left: 260px;
+      overflow: auto;
+    }
+
+    .modal .modal-content {
+      max-width: calc(100% - 320px);
+      width: 88%;
+      box-sizing: border-box;
+      margin: 24px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 1200px) {
+      .modal .modal-content {
+        max-width: 760px;
+        width: 94%;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .modal .modal-content {
+        max-width: calc(100% - 48px);
+        width: 96%;
+        margin: 12px auto;
+        padding: 12px;
+      }
+    }
+
+    /* Mobile-specific modal behavior: full width, respect viewport height, scroll inside modal */
+    @media (max-width: 600px) {
+      .modal {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        align-items: flex-start;
+      }
+
+      .modal .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 8px !important;
+        border-radius: 8px 8px 0 0 !important;
+        height: auto !important;
+        max-height: calc(100vh - 40px) !important;
+        overflow-y: auto !important;
+        padding: 12px 14px !important;
+      }
+
+      .modal .modal-close-btn {
+        right: 12px !important;
+      }
+
+      /* Ensure form fields stack nicely on narrow screens */
+      .modal .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal .form-group {
+        width: 100% !important;
+      }
+    }
+  </style>
+  <script src="/Work_logs/static/js/operator.js"></script>
+  <script src="/Work_logs/static/js/auth.js"></script>
+  <script src="/Work_logs/static/js/index.js"></script>
+  <script src="/Work_logs/static/js/access_control.js"></script>
+  <script>
+    function toggleSubMasterData(event) {
+      event.preventDefault();
+      var li = event.target.closest('li');
+      if (!li) return;
+      var submenu = li.querySelector('.sub-master-data-menu');
+      var anchor = li.querySelector('a');
+      if (!submenu || !anchor) return;
+      var isOpen = submenu.style.display === 'block';
+      if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+    }
+  </script>
+</body>
+
+</html>

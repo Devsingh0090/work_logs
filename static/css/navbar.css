@@ -1,0 +1,33 @@
+   #top-navbar {
+        width: 100%;
+        /* background: #f8f9fa;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03); */
+        position: relative;
+        margin: 0;
+        padding: 0;
+      }
+      .navbar-content {
+        position: relative;
+        width: 100%;
+        min-height: 48px;
+      }
+      .navbar-powered-right {
+        position: absolute;
+        right: 3;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-right: 0;    
+      }
+          
+   .nav-btn {
+    text-decoration: none;
+    
+}
+
+.nav-btn:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}

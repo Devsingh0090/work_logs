@@ -1,0 +1,112 @@
+.card {
+	max-width: 1000px;
+	margin: 0 auto 24px auto;
+}
+
+.viz-table th,
+.viz-table td {
+	padding: 10px 8px;
+}
+
+.custom-tabs {
+	margin-bottom: 12px;
+}
+
+.custom-tab-btn.active {
+	background: linear-gradient(90deg, #0b78ff, #1e90ff);
+	color: #fff;
+}
+
+/* Filter bar styles used on reports pages */
+.styled-filter-bar {
+	background: linear-gradient(180deg, #f6fbff 0%, #f0f7ff 100%);
+	border-radius: 12px;
+	padding: 16px 18px;
+	box-shadow: 0 6px 18px rgba(18, 52, 90, 0.06);
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.filter-fields-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: center;
+}
+
+.filter-fields-row label {
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
+	color: #0b63c8;
+	font-size: 0.95rem;
+}
+
+.filter-input {
+	margin-top: 6px;
+	padding: 8px 10px;
+	border: 1px solid #cfe3ff;
+	border-radius: 6px;
+	background: #fff;
+	min-width: 140px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.filter-input[type="date"] {
+	padding: 6px 10px;
+}
+
+.filter-btn-row {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+}
+
+.filter-btn {
+	padding: 8px 14px;
+	border-radius: 6px;
+	border: 1px solid transparent;
+	background: #eef6ff;
+	color: #0b63c8;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.filter-btn:hover {
+	background: #e0efff;
+}
+
+.filter-btn.primary {
+	background: linear-gradient(90deg, #0b66e6, #0b9af5);
+	color: #fff;
+	border-color: transparent;
+}
+
+.filter-btn.primary:hover {
+	filter: brightness(.95);
+}
+
+@media (max-width:720px) {
+	.filter-fields-row {
+		flex-direction: column !important;
+		align-items: stretch !important;
+	}
+
+	.filter-input {
+		width: 100% !important;
+		min-width: unset !important;
+	}
+
+	.filter-fields-row label {
+		width: 100% !important;
+	}
+
+	.filter-btn-row {
+		justify-content: stretch;
+	}
+
+	.filter-btn {
+		flex: 1;
+	}
+}

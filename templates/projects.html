@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/operators.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/projects.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+  <script>
+    function toggleSubMasterData(event) {
+      event.preventDefault();
+      var li = event.target.closest('li');
+      if (!li) return;
+      var submenu = li.querySelector('.sub-master-data-menu');
+      var anchor = li.querySelector('a');
+      if (!submenu || !anchor) return;
+      var isOpen = submenu.style.display === 'block';
+      if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Toggle Button -->
+  <button class="toggle-btn" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects" class="active"><i class="fas fa-project-diagram"></i>
+            <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+        <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:none; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content" id="mainContent" style="overflow-x:auto;">
+    <div class="header">
+      <div class="page-title">
+        <h1>Projects</h1>
+        <p>Create and assign employees to projects</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-tabs-container">
+      <div class="custom-tabs">
+        <button id="tabProjectEntry" class="custom-tab-btn active" type="button">Add Project</button>
+        <button id="tabProjectList" class="custom-tab-btn" type="button">Projects List</button>
+        <button id="tabWorkTypes" class="custom-tab-btn" type="button">Work Types</button>
+      </div>
+    </div>
+
+    <div id="projectEntryTab" class="tab-content" style="display:block;">
+      <div class="card">
+        <h5 style="margin-top:0; font-size:2.2rem; font-weight:700; color:#263238;">Add New Project</h5>
+        <hr style="margin:16px 0 20px 0; border:0; border-top:1px solid #e0e0e0;">
+        <form id="projectForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="project_name">Project Name *</label>
+              <input type="text" id="project_name" name="project_name" required maxlength="50">
+            </div>
+            <div class="form-group">
+              <label for="project_company">Client(optional)</label>
+              <select id="project_company" name="company_id">
+                <option value="">-- Select Client --</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1 1 100%;">
+              <label for="project_description">Description</label>
+              <input type="text" id="project_description" name="description" maxlength="1000">
+            </div>
+            <div class="form-group" style="flex:1 1 100%;">
+              <label for="assign_employee">Assign Employee (one by one)</label>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <select id="assign_employee" style="flex:1"></select>
+                <button type="button" id="addEmployeeBtn" class="btn-primary">Add</button>
+              </div>
+              <div id="assignedList" style="margin-top:8px;"></div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Create Project</button>
+            <button type="button" onclick="document.getElementById('projectForm').reset()"
+              class="btn-secondary">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="projectListTab" class="tab-content" style="display:none;">
+      <div class="table-container">
+        <h3 class="table-header-title">All Projects</h3>
+        <div style="overflow-x:auto; max-height:60vh;">
+          <table id="projectsTable" class="viz-table" style="min-width:900px; width:max-content;">
+            <thead>
+              <tr>
+                <th>S. No.</th>
+                <th>Project Name</th>
+                <th>Company</th>
+                <th>Assigned Employees</th>
+                <th>Logged User</th>
+                <th>Operation</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="projectsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="workTypesTab" class="tab-content" style="display:none;">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <h5 style="margin-top:0; font-size:1.6rem; font-weight:700; color:#263238;">Add Modules</h5>
+          <div>
+            <button id="btnAddWorkTypeOnly" type="button" class="btn" onclick="openAddWorkTypeOnly()">Add Work Type
+              Only</button>
+          </div>
+        </div>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:16px; align-items:stretch;">
+          <div style="width:100%;">
+            <h5 style="margin-bottom:8px;">Add Modules (select Work Type)</h5>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <select id="modulesWorkTypeSelect">
+                <option value="">-- Select Work Type --</option>
+              </select>
+              <div style="display:flex;gap:8px;">
+                <input id="moduleNameInput" placeholder="Module name" maxlength="50" style="flex:1;" />
+                <button id="addModuleBtn" class="btn">Add</button>
+              </div>
+              <div id="modulesListDiv" style="min-height:80px; border:1px solid #eee; padding:8px; border-radius:8px;">
+              </div>
+            </div>
+          </div>
+
+          <div style="width:100%;">
+            <h5 style="margin-bottom:8px;">Work Types List</h5>
+            <div class="table-container">
+              <table class="viz-table" id="workTypesTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Modules</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="workTypesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Stats Modal -->
+  <div id="statsModal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:800px; width:90%;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 id="statsModalTitle" style="margin:0;">Project Work Statistics</h3>
+        <button type="button" class="btn-secondary" onclick="closeStatsModal()"
+          style="padding:8px 12px; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">&times;</button>
+      </div>
+      <div id="statsModalBody">
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-bottom:24px;">
+          <div class="card"
+            style="padding:12px; margin-bottom:0; background:#f8fafc; border:1px solid #e2e8f0; text-align:center;">
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:4px; font-weight:500;">Total Contributors</p>
+            <h4 id="totalContributors" style="font-size:1.3rem; margin:0; color:#4f46e5;">0</h4>
+          </div>
+          <div class="card"
+            style="padding:12px; margin-bottom:0; background:#f8fafc; border:1px solid #e2e8f0; text-align:center;">
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:4px; font-weight:500;">Total Entries</p>
+            <h4 id="totalEntries" style="font-size:1.3rem; margin:0; color:#0ea5e9;">0</h4>
+          </div>
+          <div class="card"
+            style="padding:12px; margin-bottom:0; background:#f8fafc; border:1px solid #e2e8f0; text-align:center;">
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:4px; font-weight:500;">Total Days</p>
+            <h4 id="totalDays" style="font-size:1.3rem; margin:0; color:#10b981;">0</h4>
+          </div>
+          <div class="card"
+            style="padding:12px; margin-bottom:0; background:#f8fafc; border:1px solid #e2e8f0; text-align:center;">
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:4px; font-weight:500;">Total Hours Spent</p>
+            <h4 id="totalHours" style="font-size:1.3rem; margin:0; color:#8b5cf6;">0</h4>
+          </div>
+        </div>
+        <div class="table-container" style="margin:0;">
+          <table class="viz-table">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Days Worked</th>
+                <th>Total Time Spent</th>
+                <th>Work Dates</th>
+              </tr>
+            </thead>
+            <tbody id="statsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/Work_logs/static/js/projects.js"></script>
+  <script src="/Work_logs/static/js/access_control.js"></script>
+  <script src="/Work_logs/static/js/index.js"></script>
+  <script>
+    function closeStatsModal() {
+      document.getElementById('statsModal').style.display = 'none';
+    }
+  </script>
+  <script>
+    // Utility to set active tab and clear others
+    function setActiveTab(activeBtnId, showTabId) {
+      const tabBtns = ['tabProjectEntry', 'tabProjectList', 'tabWorkTypes'];
+      const tabContents = ['projectEntryTab', 'projectListTab', 'workTypesTab'];
+      tabBtns.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); });
+      tabContents.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+      const activeBtn = document.getElementById(activeBtnId);
+      const showTab = document.getElementById(showTabId);
+      if (activeBtn) activeBtn.classList.add('active');
+      if (showTab) showTab.style.display = 'block';
+    }
+
+    document.getElementById('tabProjectEntry').onclick = function () {
+      setActiveTab('tabProjectEntry', 'projectEntryTab');
+    }
+    document.getElementById('tabProjectList').onclick = function () {
+      setActiveTab('tabProjectList', 'projectListTab');
+      if (typeof loadProjects === 'function') loadProjects();
+    }
+    document.getElementById('tabWorkTypes').onclick = function () {
+      setActiveTab('tabWorkTypes', 'workTypesTab');
+      if (typeof loadWorkTypes === 'function') loadWorkTypes();
+    }
+  </script>
+  <style>
+    /* Modal positioning to avoid being cut by left sidebar */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding-left: 260px;
+      /* adjust if your sidebar width differs */
+      overflow: auto;
+    }
+
+    .modal .modal-content {
+      max-width: calc(100% - 320px);
+      width: 88%;
+      box-sizing: border-box;
+      margin: 24px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 800px) {
+      .modal .modal-content {
+        max-width: calc(100% - 48px);
+        width: 96%;
+        margin: 12px auto;
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .modal {
+        padding-left: 0 !important;
+        align-items: flex-start;
+      }
+
+      .modal .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 8px !important;
+        border-radius: 8px 8px 0 0 !important;
+        max-height: calc(100vh - 40px) !important;
+        overflow-y: auto !important;
+        padding: 12px 14px !important;
+      }
+
+      .modal .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal .form-group {
+        width: 100% !important;
+      }
+    }
+  </style>
+</body>
+
+</html>

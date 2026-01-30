@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Entries</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/operators.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/work_entries.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+  <style>
+    /* Filter date inputs styling */
+    #filter_start,
+    #filter_end {
+      width: 140px;
+      padding: 8px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      height: 36px;
+      font-size: 13px;
+      background: #fff;
+      box-shadow: none;
+    }
+
+    /* Small tweak for calendar icon alignment on Windows/Chrome */
+    #filter_start::-webkit-calendar-picker-indicator,
+    #filter_end::-webkit-calendar-picker-indicator {
+      margin-left: 6px;
+    }
+  </style>
+  <script>
+    function toggleSubMasterData(event) {
+      event.preventDefault();
+      var li = event.target.closest('li');
+      if (!li) return;
+      var submenu = li.querySelector('.sub-master-data-menu');
+      var anchor = li.querySelector('a');
+      if (!submenu || !anchor) return;
+      var isOpen = submenu.style.display === 'block';
+      if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+    }
+  </script>
+</head>
+
+<body>
+  <button class="toggle-btn" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries" class="active"><i class="fas fa-clipboard-list"></i> <span>Work
+              Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+        <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:none; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content" id="mainContent" style="overflow-x:auto;">
+    <div class="header">
+      <div class="page-title">
+        <h1>Work Entries</h1>
+        <p>Log daily work with date, type, skills learned and timings</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+    <!-- Tab Navigation (Add / List) -->
+    <div class="custom-tabs-container">
+      <div class="custom-tabs">
+        <button id="tabAddWork" class="custom-tab-btn active" type="button">Add Work Entry</button>
+        <button id="tabWorkList" class="custom-tab-btn" type="button">Work Entries List</button>
+      </div>
+    </div>
+
+    <div id="workAddTab" class="tab-content" style="display:block;">
+      <div class="card">
+        <h5 style="margin-bottom:12px;">Add Work Entry</h5>
+        <form id="workEntryInlineForm">
+          <div class="form-row">
+            <div class="form-group" style="flex:0 0 160px;">
+              <label for="inline_date">Date</label>
+              <input id="inline_date" type="date" required />
+            </div>
+            <div class="form-group" style="flex:1 1 220px;">
+              <label for="inline_type">Work Type</label>
+              <select id="inline_type" required>
+                <option value="">-- Select Work Type --</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1 1 220px; display:none;" id="inline_module_group">
+              <label for="inline_module">Module</label>
+              <select id="inline_module">
+                <option value="">-- Select Module --</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1 1 220px;">
+              <label for="inline_skills">Skills Learned</label>
+              <input id="inline_skills" type="text" placeholder="e.g., React,SQL" />
+            </div>
+            <div class="form-group" style="flex:0 0 220px;">
+              <label for="inline_project">Project (optional)</label>
+              <select id="inline_project">
+                <option value="">-- none --</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:8px;">
+            <div class="form-group" style="flex:1 1 60%;">
+              <label for="inline_desc">Description</label>
+              <input id="inline_desc" type="text" placeholder="Short description" />
+            </div>
+            <div style="display:flex; gap:8px; align-items:flex-end;">
+              <div class="form-group" style="flex:0 0 120px;">
+                <label for="inline_start">Start</label>
+                <input id="inline_start" type="time" />
+              </div>
+              <div class="form-group" style="flex:0 0 120px;">
+                <label for="inline_end">End</label>
+                <input id="inline_end" type="time" />
+              </div>
+              <div style="align-self:flex-end;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div id="inline_duration_display" style="font-weight:600;color:#333"></div>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="workListTab" class="tab-content" style="display:none;">
+      <div class="card" style="margin-top:14px;">
+        <h5>All Work Entries</h5>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <label style="font-size:13px;color:#444;margin-right:6px;">From</label>
+            <input type="date" id="filter_start" />
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <label style="font-size:13px;color:#444;margin-right:6px;">To</label>
+            <input type="date" id="filter_end" />
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button id="filterApply" class="btn">Apply</button>
+            <button id="filterClear" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="viz-table" id="workEntriesTable">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Module</th>
+                <th>Project</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Skills Learned</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="workEntriesBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="/Work_logs/static/js/work_entries.js"></script>
+    <script src="/Work_logs/static/js/access_control.js"></script>
+    <script src="/Work_logs/static/js/index.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const tabAdd = document.getElementById('tabAddWork');
+        const tabList = document.getElementById('tabWorkList');
+        const addTab = document.getElementById('workAddTab');
+        const listTab = document.getElementById('workListTab');
+        if (tabAdd && tabList && addTab && listTab) {
+          tabAdd.onclick = function () {
+            tabAdd.classList.add('active'); tabList.classList.remove('active');
+            addTab.style.display = 'block'; listTab.style.display = 'none';
+          };
+          tabList.onclick = function () {
+            tabList.classList.add('active'); tabAdd.classList.remove('active');
+            addTab.style.display = 'none'; listTab.style.display = 'block';
+            if (typeof loadWorkEntries === 'function') loadWorkEntries();
+          };
+        }
+      });
+    </script>
+</body>
+
+</html>

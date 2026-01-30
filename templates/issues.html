@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issues</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/operators.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/issues.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+  <script>
+    function toggleSubMasterData(event) {
+      event.preventDefault();
+      var li = event.target.closest('li');
+      if (!li) return;
+      var submenu = li.querySelector('.sub-master-data-menu');
+      var anchor = li.querySelector('a');
+      if (!submenu || !anchor) return;
+      var isOpen = submenu.style.display === 'block';
+      if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); }
+    }
+  </script>
+  <style></style>
+</head>
+
+<body>
+  <button class="toggle-btn" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues" class="active"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a>
+        </li>
+        <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:none; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content" id="mainContent" style="overflow-x:auto;">
+    <div class="header">
+      <div class="page-title">
+        <h1>Issued Items</h1>
+        <p>Log project issues and assign responsible persons</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+    <!-- Tab Navigation (Add / List) -->
+    <div class="custom-tabs-container">
+      <div class="custom-tabs">
+        <button id="tabAddIssue" class="custom-tab-btn active" type="button">Add Issue</button>
+        <button id="tabIssueList" class="custom-tab-btn" type="button">Issues List</button>
+      </div>
+    </div>
+
+    <div id="issueAddTab" class="tab-content" style="display:block;">
+      <div class="card">
+        <h5 style="margin-bottom:12px;">Add Issue</h5>
+        <form id="issueForm">
+          <div class="form-row">
+            <div class="form-group" style="flex:0 0 180px;">
+              <label>Project Name</label>
+              <select id="issueProject">
+                <option value="">-- none --</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:0 0 160px;">
+              <label>Date *</label>
+              <input id="issueDate" type="date" required />
+            </div>
+            <div class="form-group" style="flex:1 1 100%;">
+              <label>Problem Description *</label>
+              <textarea id="problemDescription" rows="2" required></textarea>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top:8px;align-items:center;">
+            <div style="flex:1 1 40%;">
+              <label>Responsible Person</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input id="responsibleInput" placeholder="Type name and click Add" />
+                <button type="button" id="addResponsible" class="btn">Add</button>
+              </div>
+              <div id="responsibleList" style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+            </div>
+            <div style="flex:1 1 40%;">
+              <label>Solved Person</label>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select id="solvedSelect" style="flex:1 1 70%;">
+                  <option value="">-- Select employee --</option>
+                </select>
+                <button type="button" id="addSolved" class="btn">Add</button>
+              </div>
+              <div id="solvedList" style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+            </div>
+            <div class="responsive-date-row" style="flex:1 1 100%; display:flex; gap:18px; align-items:center;">
+              <div class="small-field">
+                <label>Start (date & time)</label>
+                <input id="issueStartTime" type="datetime-local" />
+                <!-- <span class="dt-placeholder">dd-mm-yyyy --:--</span> -->
+              </div>
+              <div class="small-field">
+                <label>Deadline (date & time)</label>
+                <input id="issueDeadline" type="datetime-local" />
+                <!-- <span class="dt-placeholder">dd-mm-yyyy --:--</span> -->
+              </div>
+              <div class="small-field">
+                <label>Status</label>
+                <select id="issueStatus">
+                  <option value="pending">Pending</option>
+                  <option value="in-progress">In-Progress</option>
+                  <option value="complete">Complete</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+            <button type="submit" class="btn btn-primary">Add Issue</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="issueListTab" class="tab-content" style="display:none;">
+      <div class="card" style="margin-top:14px;">
+        <h5>All Issued Items</h5>
+        <div class="table-container">
+          <table class="viz-table" id="issuesTable">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Project</th>
+                <th>Date</th>
+                <th>Problem</th>
+                <th>Responsible</th>
+                <th>Solved</th>
+                <th>Start</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Issue Modal -->
+    <div id="editIssueModal" class="modal" aria-hidden="true" style="display:none;">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel">
+        <h4>Edit Issue</h4>
+        <div class="modal-body">
+          <label>Solved Person</label>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="modalSolvedSelect" style="flex:1 1 70%;">
+              <option value="">-- Select employee --</option>
+            </select>
+            <button type="button" id="modalAddSolved" class="btn">Add</button>
+          </div>
+          <div id="modalSolvedList" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+
+          <div style="margin-top:10px;">
+            <label>Deadline (date & time)</label>
+            <input id="modalDeadline" type="datetime-local" />
+          </div>
+        </div>
+        <div class="modal-actions" style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+          <button id="modalCancel" class="btn">Cancel</button>
+          <button id="modalSave" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/Work_logs/static/js/issues.js"></script>
+    <script src="/Work_logs/static/js/access_control.js"></script>
+    <script src="/Work_logs/static/js/index.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const tabAdd = document.getElementById('tabAddIssue');
+        const tabList = document.getElementById('tabIssueList');
+        const addTab = document.getElementById('issueAddTab');
+        const listTab = document.getElementById('issueListTab');
+        if (tabAdd && tabList && addTab && listTab) {
+          tabAdd.onclick = function () {
+            tabAdd.classList.add('active'); tabList.classList.remove('active');
+            addTab.style.display = 'block'; listTab.style.display = 'none';
+          };
+          tabList.onclick = function () {
+            tabList.classList.add('active'); tabAdd.classList.remove('active');
+            addTab.style.display = 'none'; listTab.style.display = 'block';
+            if (typeof loadIssues === 'function') loadIssues();
+          };
+        }
+      });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+/* Work Entries specific styles */
+/* Work Entries specific styles */
+.card h5 { color: #1e88e5; margin-bottom: 12px; }
+.table-container { overflow-x: auto; }
+#workEntriesTable { width: 100%; border-radius: 10px; overflow: hidden; }
+#workEntriesTable thead th { background: linear-gradient(180deg,#f6fbff,#f1f6fa); font-weight:700; padding:14px 16px; }
+#workEntriesTable td { padding:14px 16px; vertical-align:middle; }
+.form-modal .form-group { margin-bottom: 10px; }
+
+/* Compact modal styles reuse existing modal look */
+.modal-content.work-entry { max-width: 520px; padding: 18px 20px; }
+.modal-content.work-entry h3 { font-size: 1.4rem; margin-bottom: 12px; }
+.modal-content.work-entry label { font-size: 0.95rem; }
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:12px; }
+
+/* Make duration column stand out slightly */
+.duration-badge { background:#eef6ff; color:#1565c0; padding:6px 10px; border-radius:8px; font-weight:600; display:inline-block; }
+
+/* Start/End time fields styling inside work-entry modal */
+.modal-content.work-entry .time-row {
+	display: flex;
+	gap: 12px;
+	align-items: flex-end;
+	margin-top: 8px;
+}
+
+.modal-content.work-entry .time-row .time-field {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.modal-content.work-entry .time-row label {
+	margin-bottom: 6px;
+	font-weight: 600;
+	color: #374151;
+}
+
+.modal-content.work-entry input[type="time"] {
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1px solid #d1d5db;
+	background: #fff;
+	font-size: 0.95rem;
+	box-sizing: border-box;
+}
+
+.modal-content.work-entry #modal_duration_display {
+	margin-top: 8px;
+	font-weight: 700;
+	color: #283046;
+}
+
+@media (max-width: 520px) {
+	.modal-content.work-entry .time-row { flex-direction: column; align-items: stretch; }
+}

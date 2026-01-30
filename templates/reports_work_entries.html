@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Entries Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/Work_logs/static/css/modern-base.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/index.css">
+  <link rel="stylesheet" href="/Work_logs/static/css/reports_work_entries.css">
+  <script src="/Work_logs/static/js/sidebar_user_info.js"></script>
+  <script>
+    function toggleSubMasterData(event) { event.preventDefault(); var li = event.target.closest('li'); if (!li) return; var submenu = li.querySelector('.sub-master-data-menu'); var anchor = li.querySelector('a'); if (!submenu || !anchor) return; var isOpen = submenu.style.display === 'block'; if (isOpen) { submenu.style.display = 'none'; anchor.classList.remove('open'); } else { submenu.style.display = 'block'; anchor.classList.add('open'); } }
+  </script>
+</head>
+
+<body>
+  <button class="toggle-btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon"><i class="fas fa-tint"></i></div>
+      <h3>Smart Work Logs <span class="sidebar-dropdown"><i class="fas fa-caret-down"></i></span></h3>
+    </div>
+    <div class="sidebar-menu" style="display: none;">
+      <ul>
+        <li><a href="/Work_logs/index"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="/Work_logs/admin_dashboard"><i class="fas fa-user-shield"></i> <span>Admin Dashboard</span></a>
+        </li>
+        <li><a href="/Work_logs/projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+        <li><a href="/Work_logs/work_entries"><i class="fas fa-clipboard-list"></i> <span>Work Entries</span></a></li>
+        <li><a href="/Work_logs/meetings"><i class="fas fa-handshake"></i> <span>Meetings</span></a></li>
+        <li><a href="/Work_logs/issues"><i class="fas fa-exclamation-circle"></i> <span>Issues</span></a></li>
+        <li><a href="/Work_logs/operator_details"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="/Work_logs/company_details"><i class="fas fa-building"></i> <span>Client Details</span></a></li>
+        <li><a href="/Work_logs/holidays"><i class="fas fa-calendar-days"></i> <span>Holidays</span></a></li>
+        <li><a href="/Work_logs/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+        <li><a href="/Work_logs/company_expense"><i class="fas fa-file-invoice-dollar"></i> <span>Expenses</span></a>
+        </li>
+        <li>
+          <a href="#" class="has-submenu open" onclick="toggleSubMasterData(event)"><i class="fas fa-chart-line"></i>
+            <span>Reports Master</span></a>
+          <ul class="sub-master-data-menu" style="display:block; list-style:none; padding-left:12px; margin:6px 0 0 0;">
+            <li><a href="/Work_logs/reports/work_entries" class="active"><i class="fas fa-file-lines"></i> <span>Work
+                  Entries</span></a></li>
+            <li><a href="/Work_logs/reports/tea_coffee"><i class="fas fa-mug-hot"></i> <span>Tea/Coffee</span></a></li>
+            <li><a href="/Work_logs/reports/company_expense"><i class="fas fa-file-invoice-dollar"></i>
+                <span>Expenses</span></a></li>
+            <li><a href="/Work_logs/reports/issues"><i class="fas fa-bug"></i> <span>Issues</span></a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt" style="color:#e53935;"></i>
+            <span style="color:#e53935; font-weight:600;">Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <div class="header">
+      <div class="page-title">
+        <h1>Work Entries — Reports</h1>
+        <p>Report: All users' work entries</p>
+      </div>
+      <div class="user-info">
+        <img src="/Work_logs/static/Exult.png" alt="User">
+        <div class="user-details">
+          <h4>Exultsoft Technologies Pvt.Ltd.</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 28px;">
+      <h5 style="margin-bottom:12px;">Filter Work Entries</h5>
+      <div class="filter-bar styled-filter-bar" style="flex-direction:column; align-items:stretch;">
+        <div class="filter-fields-row"
+          style="display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:flex-start;">
+          <label>Start Date:<input type="date" id="filterStartDate" class="filter-input"></label>
+          <label>End Date:<input type="date" id="filterEndDate" class="filter-input"></label>
+          <label>User:
+            <select id="filterUser" class="filter-input">
+              <option value="">All</option>
+            </select>
+          </label>
+          <label>Work Type:
+            <select id="filterWorkType" class="filter-input">
+              <option value="">All</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-btn-row" style="display:flex; gap:16px; justify-content:flex-end; margin-top:18px;">
+          <button id="resetFiltersBtn" class="filter-btn">Reset</button>
+          <button id="applyFiltersBtn" class="filter-btn primary">Apply Filters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h5 style="margin-bottom:12px;">All Users — Work Entries</h5>
+      <div class="table-container">
+        <table class="viz-table" id="reportsAllTable">
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Date</th>
+              <th>User</th>
+              <th>Work Type</th>
+              <th>Module</th>
+              <th>Duration (min)</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="reportsAllBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h5 style="margin-bottom:12px;">All Users — Meetings</h5>
+      <div class="table-container">
+        <table class="viz-table" id="reportsMeetingsTable">
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Date</th>
+              <th>User</th>
+              <th>Type</th>
+              <th>Project</th>
+              <th>Duration (min)</th>
+              <th>Summary</th>
+            </tr>
+          </thead>
+          <tbody id="reportsMeetingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .custom-tabs {
+      display: flex;
+      gap: 0;
+    }
+
+    .custom-tab-btn {
+      background: #f3f6fa;
+      border: none;
+      border-radius: 6px 6px 0 0;
+      padding: 10px 28px;
+      font-weight: 600;
+      color: #2563eb;
+      cursor: pointer;
+      margin-right: 2px;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .custom-tab-btn.active {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .tab-content {
+      animation: fadein 0.2s;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .styled-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 0;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 18px 18px 10px 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .styled-filter-bar label {
+      font-weight: 500;
+      color: #2563eb;
+      margin-right: 8px;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.98rem;
+    }
+
+    .filter-input {
+      margin-top: 4px;
+      padding: 6px 10px;
+      border: 1px solid #bcd0ee;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 120px;
+      background: #fff;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      background: #e0e7ef;
+      color: #2563eb;
+      margin-left: 8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .filter-btn.primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .filter-btn:hover {
+      background: #c7d7f5;
+    }
+
+    .filter-btn.primary:hover {
+      background: #1746a2;
+    }
+  </style>
+  <script src="/Work_logs/static/js/reports_work_entries.js"></script>
+  <script>
+    // --- Filter logic (frontend only, includes meetings) ---
+    let allReportsData = [];
+    let allMeetingsData = [];
+    function populateFilterOptions() {
+      const userSet = new Set();
+      const workTypeSet = new Set();
+      allReportsData.forEach(row => {
+        if (row.logged_user) userSet.add(row.logged_user);
+        if (row.work_type) workTypeSet.add(row.work_type);
+      });
+      allMeetingsData.forEach(row => {
+        if (row.logged_user) userSet.add(row.logged_user);
+      });
+      const userSel = document.getElementById('filterUser');
+      const workTypeSel = document.getElementById('filterWorkType');
+      if (userSel) {
+        userSel.innerHTML = '<option value="">All</option>' + Array.from(userSet).map(u => `<option value="${u}">${u}</option>`).join('');
+      }
+      if (workTypeSel) {
+        workTypeSel.innerHTML = '<option value="">All</option>' + Array.from(workTypeSet).map(w => `<option value="${w}">${w}</option>`).join('');
+      }
+    }
+    function filterReportsData() {
+      const start = document.getElementById('filterStartDate').value;
+      const end = document.getElementById('filterEndDate').value;
+      const user = document.getElementById('filterUser').value;
+      const workType = document.getElementById('filterWorkType').value;
+
+      let filteredReports = allReportsData;
+      if (start) filteredReports = filteredReports.filter(r => r.date && r.date >= start);
+      if (end) filteredReports = filteredReports.filter(r => r.date && r.date <= end);
+      if (user) filteredReports = filteredReports.filter(r => r.logged_user === user);
+      if (workType) filteredReports = filteredReports.filter(r => r.work_type === workType);
+
+      let filteredMeetings = allMeetingsData;
+      if (start) filteredMeetings = filteredMeetings.filter(m => (m.meeting_date || m.date) && (m.meeting_date || m.date) >= start);
+      if (end) filteredMeetings = filteredMeetings.filter(m => (m.meeting_date || m.date) && (m.meeting_date || m.date) <= end);
+      if (user) filteredMeetings = filteredMeetings.filter(m => m.logged_user === user);
+
+      if (window.renderReportsTable) window.renderReportsTable(filteredReports);
+      if (window.renderMeetings) window.renderMeetings(filteredMeetings);
+    }
+    function resetFilters() {
+      document.getElementById('filterStartDate').value = '';
+      document.getElementById('filterEndDate').value = '';
+      document.getElementById('filterUser').value = '';
+      document.getElementById('filterWorkType').value = '';
+      filterReportsData();
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      // Patch the reports JS to capture all data and expose render
+      if (window.loadReportsAll) {
+        const orig = window.loadReportsAll;
+        window.renderReportsTable = function (list) {
+          const tbody = document.getElementById('reportsAllBody');
+          tbody.innerHTML = '';
+          if (!list || list.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center">No records</td></tr>'; return; }
+          list.forEach((it, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${idx + 1}</td><td>${it.date || ''}</td><td>${it.logged_user || ''}</td><td>${it.work_type || ''}</td><td>${it.module || ''}</td><td>${it.duration_minutes || ''}</td><td class="truncate-cell" title="${(it.description || '').replace(/"/g, '&quot;')}">${(it.description || '')}</td>`;
+            tbody.appendChild(tr);
+          });
+        };
+        window.renderMeetings = function (list) {
+          const tbody = document.getElementById('reportsMeetingsBody');
+          if (!tbody) return;
+          tbody.innerHTML = '';
+          if (!list || list.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center">No records</td></tr>'; return; }
+          list.forEach((it, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${idx + 1}</td><td>${it.meeting_date || it.date || ''}</td><td>${it.logged_user || ''}</td><td>${it.meeting_type || ''}</td><td>${it.project_name || it.project_id || ''}</td><td>${it.duration_minutes || ''}</td><td class="truncate-cell" title="${(it.discussion_summary || '').replace(/"/g, '&quot;')}">${(it.discussion_summary || '')}</td>`;
+            tbody.appendChild(tr);
+          });
+        };
+        window.loadReportsAll = function () {
+          // call original loader (which fetches and renders both lists as well), but also capture data for filtering
+          orig();
+          // fetch reports data for client-side filtering
+          fetch('/Work_logs/api/reports/work_entries')
+            .then(r => r.json())
+            .then(list => {
+              allReportsData = list || [];
+              // after we have work entries, fetch meetings for filters
+              fetch('/Work_logs/api/reports/meetings')
+                .then(r => r.json())
+                .then(mlist => {
+                  allMeetingsData = mlist || [];
+                  populateFilterOptions();
+                  filterReportsData();
+                })
+                .catch(() => {
+                  allMeetingsData = [];
+                  populateFilterOptions();
+                  filterReportsData();
+                });
+            })
+            .catch(() => {
+              allReportsData = [];
+              allMeetingsData = [];
+              populateFilterOptions();
+              filterReportsData();
+            });
+        };
+        window.loadReportsAll();
+      }
+      document.getElementById('applyFiltersBtn').onclick = filterReportsData;
+      document.getElementById('resetFiltersBtn').onclick = resetFilters;
+    });
+  </script>
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Report...</div>
+  </div>
+
+  <script src="/Work_logs/static/js/access_control.js"></script>
+  <script src="/Work_logs/static/js/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabAdd = document.getElementById('tabAddReport');
+      const tabList = document.getElementById('tabReportList');
+      const addTab = document.getElementById('reportAddTab');
+      const listTab = document.getElementById('reportListTab');
+      if (tabAdd && tabList && addTab && listTab) {
+        tabAdd.onclick = function () { tabAdd.classList.add('active'); tabList.classList.remove('active'); addTab.style.display = 'block'; listTab.style.display = 'none'; };
+        tabList.onclick = function () { tabList.classList.add('active'); tabAdd.classList.remove('active'); addTab.style.display = 'none'; listTab.style.display = 'block'; };
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,378 @@
+.pill {
+  background: #f1f5f9;
+  padding: 6px 8px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-rem {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 6px;
+  color: #c53030;
+}
+
+
+#responsibleInput,
+#solvedInput {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+/* Form layout helpers to align with project style */
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+select,
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+#addResponsible,
+#addSolved {
+  height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  background: #f5f7fa;
+  cursor: pointer;
+}
+
+#issueProject {
+  max-width: 320px;
+}
+
+/* Table styling consistent with other pages */
+#issuesTable {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 900px;
+}
+
+#issuesTable thead th {
+  background: linear-gradient(180deg, #f6fbff, #f1f6fa);
+  font-weight: 700;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+#issuesTable td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* responsive table wrapper to allow horizontal scroll on small screens */
+.table-container {
+  overflow-x: auto;
+  padding: 12px;
+}
+
+/* Column width hints to keep table single-line and readable */
+#issuesTable th:nth-child(1),
+#issuesTable td:nth-child(1) {
+  width: 60px;
+}
+
+#issuesTable th:nth-child(2),
+#issuesTable td:nth-child(2) {
+  width: 200px;
+}
+
+#issuesTable th:nth-child(3),
+#issuesTable td:nth-child(3) {
+  width: 120px;
+}
+
+#issuesTable th:nth-child(4),
+#issuesTable td:nth-child(4) {
+  width: 320px;
+}
+
+#issuesTable th:nth-child(5),
+#issuesTable td:nth-child(5) {
+  width: 200px;
+}
+
+#issuesTable th:nth-child(6),
+#issuesTable td:nth-child(6) {
+  width: 200px;
+}
+
+#issuesTable th:nth-child(7),
+#issuesTable td:nth-child(7) {
+  width: 90px;
+}
+
+#issuesTable th:nth-child(8),
+#issuesTable td:nth-child(8) {
+  width: 120px;
+}
+
+#issuesTable th:nth-child(9),
+#issuesTable td:nth-child(9) {
+  width: 120px;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.status-pending {
+  background: #9aa7b2;
+}
+
+.status-in-progress {
+  background: #f6a623;
+}
+
+.status-complete {
+  background: #2e7d32;
+}
+
+.status-badge.small {
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
+.pill {
+  font-size: 13px;
+}
+
+.pill-rem {
+  margin-left: 8px;
+}
+
+/* small inline fields for start/deadline/status */
+.small-field {
+  flex: 0 0 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.small-field input,
+.small-field select {
+  width: 100%;
+}
+
+/* Center the Action column and buttons */
+#issuesTable th:last-child {
+  text-align: center;
+}
+
+#issuesTable td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+#issuesTable td {
+  vertical-align: middle;
+}
+
+#issuesTable .btn,
+#issuesTable .btn-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+
+/* action cell wrapper to center controls reliably */
+.action-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+/* datetime-local placeholder overlay */
+.small-field {
+  position: relative;
+}
+
+/* hide any legacy dt-placeholder spans (we rely on native control rendering) */
+.small-field .dt-placeholder {
+  display: none !important;
+}
+
+/* Tidy datetime-local inputs: consistent height, padding and font */
+.small-field input[type="datetime-local"],
+.small-field input[type="date"],
+.small-field input[type="time"] {
+  height: 40px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* Adjust label spacing to avoid visual crowding */
+.small-field>label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* make the inline small fields align nicely in a row */
+.small-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Modal styles for Edit Issue */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.modal-panel {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 520px;
+  max-width: 92%;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.2);
+  z-index: 2;
+  margin: auto;
+  transform: translateY(25%);
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.modal-panel h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-panel label {
+  font-size: 13px;
+  color: #374151;
+}
+
+/* small tweaks for modal controls */
+#modalSolvedSelect {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+#modalDeadline {
+  height: 40px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+
+/* Mobile Responsiveness for Issues Form */
+/* Mobile Responsiveness for Issues Form */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column !important;
+    gap: 16px;
+    align-items: stretch !important;
+    /* Force stretch */
+  }
+
+  /* Target all direct children of form-row to override inline flex styles */
+  .form-row>div,
+  .form-group,
+  .small-field,
+  #issueProject {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+
+  .action-cell {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #issuesTable th:nth-child(n),
+  #issuesTable td:nth-child(n) {
+    width: auto;
+    min-width: 120px;
+  }
+
+  /* Force date/time/status row to stack */
+  .responsive-date-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+}

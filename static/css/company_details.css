@@ -1,0 +1,243 @@
+body {
+    font-family: Arial, sans-serif;
+    /* background removed to match global theme */
+}
+
+.container {
+    max-width: 700px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 24px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+h2,
+h3 {
+    text-align: center;
+}
+
+
+form button {
+    grid-column: span 2;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+#formMessage {
+    text-align: center;
+    color: green;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background: #2196F3;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 4px 12px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #ffc107;
+    color: #333;
+}
+
+.delete-btn {
+    background: #f44336;
+    color: #fff;
+}
+
+/* Modal styles moved to global modern-base.css */
+
+@media (max-width: 600px) {
+    .container {
+        margin: 15px auto;
+        padding: 16px;
+        width: 95%;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    form label {
+        grid-column: span 1;
+    }
+
+    form button {
+        grid-column: span 1;
+    }
+
+    .modal-content {
+        min-width: 0;
+        width: 90%;
+        max-width: 95vw;
+        padding: 20px;
+    }
+
+    table th,
+    table td {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+
+    /* Ensure table scrolls */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Form Responsiveness */
+    .container {
+        margin: 15px auto;
+        padding: 20px;
+        width: 95%;
+    }
+
+    /* Override grid if it was used, but mainly target flex structure */
+    form {
+        display: block;
+        /* Stop grid if it conflicts */
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column !important;
+        /* Stack rows */
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    form label,
+    form button,
+    .form-group label {
+        width: 100%;
+        display: block;
+    }
+
+    form input,
+    .form-group input {
+        width: 100%;
+        box-sizing: border-box;
+        /* prevent padding from causing overflow */
+    }
+}
+
+/* --- Edit Modal Form Styles (Company Details) --- */
+.modal .modal-content {
+    max-width: 920px;
+    padding: 28px 34px;
+}
+
+.modal .modal-content h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #3b4752;
+    margin: 0 0 18px 0;
+    font-weight: 700;
+}
+
+.modal .modal-content form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 22px;
+    align-items: start;
+}
+
+.modal .modal-content label {
+    display: block;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+    font-size: 0.98rem;
+}
+
+.modal .modal-content input[type="text"],
+.modal .modal-content input[type="email"],
+.modal .modal-content input[type="tel"],
+.modal .modal-content input[type="url"],
+.modal .modal-content textarea,
+.modal .modal-content select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 0.98rem;
+    color: #1f2937;
+    box-sizing: border-box;
+}
+
+.modal .modal-content .form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.modal .modal-content .btn-clear {
+    background: #f5f7fa;
+    color: #334155;
+    border: 1px solid #e6e9ee;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal .modal-content .btn-save {
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .modal .modal-content form {
+        grid-template-columns: 1fr;
+    }
+    .modal .modal-content .form-actions {
+        justify-content: space-between;
+    }
+}

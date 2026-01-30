@@ -1,0 +1,123 @@
+.card.expense-card {
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+}
+
+.expense-table .viz-table td,
+.expense-table .viz-table th {
+  padding: 12px 10px;
+}
+
+.form-group.expense-inline {
+  flex: 0 0 220px;
+}
+
+/* Modal & edit form styles for Company Expense edit modal */
+.modal {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 11, 13, 0.36);
+}
+
+.modal .modal-content {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px 26px;
+  width: 440px;
+  max-width: calc(100% - 40px);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.18);
+  font-family: 'Poppins', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.modal .modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+  text-align: center;
+  color: #374151;
+  font-weight: 700;
+}
+
+.modal .modal-content label {
+  display: block;
+  margin: 8px 0 6px 0;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modal .modal-content input[type="text"],
+.modal .modal-content input[type="date"],
+.modal .modal-content input[type="number"],
+.modal .modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.modal .modal-content input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.12);
+}
+
+.modal .modal-content .modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.modal .modal-content .btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal .modal-content .btn-primary {
+  background: #0b78ff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(11, 120, 255, 0.22);
+  cursor: pointer;
+}
+
+.modal .modal-content .btn-secondary:hover,
+.modal .modal-content .btn-primary:hover {
+  filter: brightness(0.98);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group.expense-inline {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .modal .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+}

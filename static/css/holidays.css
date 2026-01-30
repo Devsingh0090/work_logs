@@ -1,0 +1,8 @@
+/* Holidays page styles - follow existing app theme */
+#holidaysBody .action-btn { padding:6px 10px; }
+#holidaysBody .edit-btn { background: rgba(67,97,238,0.08); color:var(--primary); }
+#holidaysBody .delete-btn { background: rgba(239,68,68,0.08); color:var(--danger); }
+
+@media (max-width: 800px) {
+  .form-row { flex-direction: column; gap:10px; }
+}
